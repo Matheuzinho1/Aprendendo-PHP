@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercício 6</title>
+    <title>Exercício 7</title>
     <link rel="stylesheet" type="text/css" href="Style.css">
 </head>
 
 <body>
     <div id="container-main">
         <h1>Formulário</h1>
-        <form action="" method="get" name="somar" id="somar" target="_self">
-            <label for="n1">Lado 1:</label>
-            <input type="number" id="n1" name="n1" required /> <br />
-            <label for="n2">Lado 2:</label>
-            <input type="number" id="n2" name="n2" required /> <br />
-            <label for="n3">Lado 3:</label>
-            <input type="number" id="n3" name="n3" required /> <br />
-            <label for="n4">Lado 4:</label>
-            <input type="number" id="n4" name="n4" required /> <br />
+        <form action="" method="get" name="calcular" id="calcular" target="_self">
+            <label for="opcao">Escolha a figura geométrica:</label>
+            <select id="opcao" name="opcao" required>
+                <option value="triangulo">Triângulo Equilátero</option>
+                <option value="quadrado">Quadrado</option>
+            </select> <br />
+            <label for="lado">Lado:</label>
+            <input type="number" id="lado" name="lado" required /> <br />
             <div id="container-button">
                 <input type="submit" id="Enviar" value="Enviar">
                 <input type="reset" id="Resetar" value="Resetar">
@@ -27,14 +26,23 @@
         </form>
 
         <?php
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['n1'], $_GET['n2'], $_GET['n3'], $_GET['n4'])) {
-            $n1 = (int)$_GET['n1'];
-            $n2 = (int)$_GET['n2'];
-            $n3 = (int)$_GET['n3'];
-            $n4 = (int)$_GET['n4'];
-
-            $result = $n1 + $n2 + $n3 + $n4;
-            echo "<p>Resultado: " . $result . "</p>";
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['opcao'], $_GET['lado'])) {
+            $opcao = $_GET['opcao'];
+            $lado = (float)$_GET['lado'];
+            
+            switch ($opcao) {
+                case 'triangulo':
+                    $altura = ($lado * sqrt(3)) / 2;
+                    echo "<p>Altura do triângulo equilátero: " . $altura . "</p>";
+                    break;
+                case 'quadrado':
+                    $area = $lado * $lado;
+                    echo "<p>Área do quadrado: " . $area . "</p>";
+                    break;
+                default:
+                    echo "<p>Opção inválida!</p>";
+                    break;
+            }
         }
         ?>
     </div>
