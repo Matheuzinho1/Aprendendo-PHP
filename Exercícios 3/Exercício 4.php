@@ -29,21 +29,46 @@
         </form>
 
         <?php
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['nota1'], $_GET['nota2'], $_GET['nota3'], $_GET['nota4'], $_GET['nota5'])) {
-            $notas = [
-                (float)$_GET['nota1'],
-                (float)$_GET['nota2'],
-                (float)$_GET['nota3'],
-                (float)$_GET['nota4'],
-                (float)$_GET['nota5']
-            ];
-            
-            rsort($notas);
-            $segundo_maior = $notas[1];
-            
-            echo "<p>O segundo maior valor inserido é: " . number_format($segundo_maior, 2, ',', '.') . "</p>";
-        }
+            if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['nota1'], $_GET['nota2'], $_GET['nota3'], $_GET['nota4'], $_GET['nota5'])) {
+                $nota1 = (float)$_GET['nota1'];
+                $nota2 = (float)$_GET['nota2'];
+                $nota3 = (float)$_GET['nota3'];
+                $nota4 = (float)$_GET['nota4'];
+                $nota5 = (float)$_GET['nota5'];
+                
+                if ($nota1 > $nota2) {
+                    $maior = $nota1;
+                    $segundo_maior = $nota2;
+                } else {
+                    $maior = $nota2;
+                    $segundo_maior = $nota1;
+                }
+                
+                if ($nota3 > $maior) {
+                    $segundo_maior = $maior;
+                    $maior = $nota3;
+                } elseif ($nota3 > $segundo_maior) {
+                    $segundo_maior = $nota3;
+                }
+                
+                if ($nota4 > $maior) {
+                    $segundo_maior = $maior;
+                    $maior = $nota4;
+                } elseif ($nota4 > $segundo_maior) {
+                    $segundo_maior = $nota4;
+                }
+                
+                if ($nota5 > $maior) {
+                    $segundo_maior = $maior;
+                    $maior = $nota5;
+                } elseif ($nota5 > $segundo_maior) {
+                    $segundo_maior = $nota5;
+                }
+                
+                echo "<p>O segundo maior valor inserido é: " . number_format($segundo_maior, 2, ',', '.') . "</p>";
+            }
         ?>
+
     </div>
 </body>
 
